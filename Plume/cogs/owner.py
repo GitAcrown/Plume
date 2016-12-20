@@ -192,7 +192,7 @@ class Owner:
 
     @commands.group(name="set", pass_context=True)
     async def _set(self, ctx):
-        """Change les réglages de Issou."""
+        """Change les réglages de Plume."""
         if ctx.invoked_subcommand is None:
             await send_cmd_help(ctx)
             return
@@ -236,7 +236,7 @@ class Owner:
     @_set.command(pass_context=True)
     @checks.is_owner()
     async def name(self, ctx, *, name):
-        """Change le nom d'Issou"""
+        """Change le nom d'Plume"""
         name = name.strip()
         if name != "":
             try:
@@ -557,8 +557,8 @@ class Owner:
     async def info(self):
         """Montre des informations à propos du bot"""
         author_repo = "https://github.com/GitAcrown"
-        red_repo = author_repo + "/IssouSystem"
-        server_url = "https://discord.me/tdkheys"
+        red_repo = author_repo + "/Plume"
+        server_url = "https://discord.gg/veqrFX8"
         dpy_repo = "https://github.com/Rapptz/discord.py"
         python_url = "https://www.python.org/"
         since = datetime.datetime(2016, 4, 26, 0, 0)
@@ -579,16 +579,16 @@ class Owner:
             owner = "Inconnu"
 
         about = (
-            "Session de [Issou, un bot pour Discord]({}) "
+            "Session de [Plume, un bot pour Discord]({}) "
             "créé par [Acrown]({}) et adapté partiellement de Red.\n\n"
-            "Ce bot est adapté pour serveur en particulier. [Rejoignez-nous !]({})\n"
+            "Ce bot a été originellement créé pour un serveur en particulier. [Rejoignez-nous !]({})\n"
             "".format(red_repo, author_repo, server_url))
 
         embed = discord.Embed(colour=discord.Colour.blue())
         embed.add_field(name="Session par", value=str(owner))
         embed.add_field(name="Python", value=py_version)
         embed.add_field(name="discord.py", value=dpy_version)
-        embed.add_field(name="A propos de Issou", value=about, inline=False)
+        embed.add_field(name="A propos de Plume", value=about, inline=False)
         embed.set_footer(text="Apporte de la joie depuis le 26 Avril 2016 ("
                          "{} jours d'existence!)".format(days_since))
 
@@ -672,7 +672,7 @@ class Owner:
         ncommits = os.popen(r'git rev-list --count HEAD').read()
 
         lines = commits.read().split('\n')
-        embed = discord.Embed(title="Mise à jour" + repo_name,
+        embed = discord.Embed(title="Mise à jour " + repo_name,
                               description="Dernières MAJ ",
                               colour=discord.Colour.red(),
                               url=url)
