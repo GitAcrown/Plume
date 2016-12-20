@@ -25,13 +25,13 @@ from cogs.utils.chat_formatting import inline
 from collections import Counter
 
 #
-# Ambre - Un bot discord modulaire adapté partiellement de Red by Twentysix26
+# Plume - Un bot discord modulaire adapté partiellement de Red by Twentysix26 version Light
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Les modules marqués d'un "Exclusif" sont des modules crées pour ce bot.
-# Les modules marqués d'un "Optimisé pour TdK" ou "Op" sont des modules réalisés pour le serveur Taverne des Kheys.
+# Les modules marqués d'un "Optimisé pour EK" ou "Op" sont des modules réalisés pour le serveur Entre Kheys.
 #
 
-description = "Ambre - Un bot Discord modulaire"
+description = "Plume - Bot Discord Light"
 
 
 class Bot(commands.Bot):
@@ -263,7 +263,7 @@ def check_folders():
 
 def check_configs():
     if settings.bot_settings == settings.default_settings:
-        print("Issou - Réglages\n")
+        print("Plume - Réglages\n")
         print("Si ce n'est pas encore fait, vous devez créer un compte BOT:\n"
               "https://twentysix26.github.io/Red-Docs/red_guide_bot_accounts/"
               "#creating-a-new-bot-account")
@@ -404,7 +404,7 @@ def load_cogs():
             if no_prompt is True:
                 registry[extension] = False
                 continue
-            print("\nNouvelle extension détectée: {}".format(extension))
+            print("\nNouvelle extension disponible: {}".format(extension))
             print("Charger ?(y/n)")
             if not get_answer():
                 registry[extension] = False
@@ -442,7 +442,7 @@ def main():
     if settings.prefixes != []:
         bot.command_prefix = settings.prefixes
     else:
-        print("Aucun préfixe réglé, par défaut !")
+        print("Aucun préfixe réglé, par défaut '!'")
         bot.command_prefix = ["!"]
         if settings.owner != "id_here":
             print("utilisez !set prefix pour le changer.")
@@ -460,7 +460,7 @@ def main():
         print("Gardez le bot à jour en utilisant régulièrement: git pull")
         print("et: pip3 install -U git+https://github.com/Rapptz/"
               "discord.py@master#egg=discord.py[voice]")
-    print("Serveur EK: https://discord.me/ekheysn")
+    print("Serveur EKode: https://discord.gg/veqrFX8")
     if settings.login_type == "token":
         yield from bot.login(settings.email)
     else:
