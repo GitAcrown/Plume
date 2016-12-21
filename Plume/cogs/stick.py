@@ -29,6 +29,20 @@ class Stick:
         if ctx.invoked_subcommand is None:
             await send_cmd_help(ctx)
 
+    @utl.command(pass_context=True, hidden=True)
+    async def repare(self, ctx):
+        """Permet de réparer son compte UTL."""
+        author = ctx.message.author
+        for stk in self.user[author.id]["FAVORIS"]:
+            if "[P]" in stk:
+                clean = stk[:-4]
+                self.user[author.id]["FAVORIS"].remove(stk)
+                self.user[author.id]["FAVORIS"].append(clean)
+            else:
+                pass
+        else:
+            await self.bot.say("Compte réparé.")
+
     @utl.command(pass_context=True)
     async def coll(self, ctx, nom):
         """Permet d'ajouter un sticker à sa collection."""
@@ -107,13 +121,13 @@ class Stick:
             await self.bot.say("Vous n'avez pas de suivi.")
 
     @commands.group(pass_context=True) #STICKERS
-    @checks.mod_or_permissions(kick_members=True)
     async def stk(self, ctx):
         """Gestion des stickers."""
         if ctx.invoked_subcommand is None:
             await send_cmd_help(ctx)
 
     @stk.command(pass_context=True, hidden=True)
+    @checks.mod_or_permissions(kick_members=True)
     async def imp(self, ctx):
         """Permet d'importer les stickers de l'ancien module."""
         if "NONE" not in self.img["CATEGORIE"]:
@@ -178,12 +192,14 @@ class Stick:
         await self.bot.say(umsg)
 
     @stk.command(aliases = ["a"],pass_context=True)
+    @checks.mod_or_permissions(kick_members=True)
     async def add(self, ctx, nom, cat, url, aff=None):
         """Permet de créer un sticker pour le serveur.
 
         Si l'affichage n'est pas précisé, sera réglé sur UPLOAD"""
         nom = nom.lower()
         cat = cat.upper()
+        author = ctx.message.author
         if "NONE" not in self.img["CATEGORIE"]:
             self.img["CATEGORIE"]["NONE"] = {"NOM" : "NONE", "DESC" : "Sans catégories"}
         if aff == None:
@@ -214,9 +230,6 @@ class Stick:
                                                 "CAT": cat,
                                                 "AFF": aff,
                                                 "POP": 0}
-                    nommod = nom + " [P]"
-                    self.user[ctx.message.author.id]["FAVORIS"].append(nommod)
-                    fileIO("data/stick/user.json","save",self.user)
                     fileIO("data/stick/img.json","save",self.img)
                     await self.bot.say("Fichier **{}** enregistré localement.".format(filename))
                 except Exception as e:
@@ -233,6 +246,7 @@ class Stick:
                 await self.bot.whisper(msg)
 
     @stk.command(aliases = ["e"],pass_context=True)
+    @checks.mod_or_permissions(kick_members=True)
     async def edit(self, ctx, nom, cat, aff=None, url=None):
         """Permet de changer des données liées à un sticker.
 
@@ -267,6 +281,7 @@ class Stick:
                 await self.bot.whisper(msg)
 
     @stk.command(aliases = ["d"],pass_context=True)
+    @checks.mod_or_permissions(kick_members=True)
     async def delete(self, ctx, nom):
         """Permet d'effacer définitivement un sticker."""
         nom = nom.lower()
